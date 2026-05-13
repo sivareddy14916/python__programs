@@ -5,7 +5,7 @@ def second_largest(lst):
     for i in lst[2:]:
         if i>first:
             first,second=i,first
-        elif i>second and i != first::
+        elif i>second and i!= first::
             second=i
     return second
 print(second_largest([11,2,32,1,5,6]))  
