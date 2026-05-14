@@ -1,26 +1,26 @@
 import math
-def ring_route_fare(source,destination):
-    fare=0.0
-    routes=[['TH',"GA",'IC','HA','TE','LU','NI','CA'],[800,600,750,900,1400,1200,1100,1500]]
-    if source and destination not in routes[0]:
-        print('Invalid input')
-        exit()
-        
-    if routes[0].index(source) < routes[0].index(destination):#check if source is small than destination
-        for i in range(routes[0].index(source),routes[0].index(destination)+1):
-            fare=fare+routes[1][i]
-    
-    elif routes[0].index(source) > routes[0].index(destination):#source is greater than destination      
-        for i in range(routes[0].index(source)+1,len(routes[0])):
-            fare=fare+routes[1][i]
-        for i in range(0,routes[0].index(destination)+1):
-            fare=fare+routes[1][i]
-    
-        return float(math.ceil(fare*0.005)) 
-        
+def busfare(source,destination):
+    Path = [800, 600, 750, 900, 1400, 1200, 1100, 1500]
+    BusStops = ["TH", "GA", "IC", "HA", "TE", "LU", "NI", "CA"]
+    if source==destination:
+        print('Invalid output')
+    if source not in BusStops or destination not in BusStops:
+        print('Invalid output') 
+    fare=0.0    
+    s=BusStops.index(source)           
+    d=BusStops.index(destination)
+    #straight way fare
+    if s<d:
+        for i in range(s,d):
+            fare+=Path[i]
+    #circular way fare            
+    else:
+        for i in range(s,len(BusStops)):
+            fare+=Path[i] 
 
-fare=ring_route_fare('NI',"HA")
-if fare==0:
-    print('Invalid input')
-else:
-    print(fare)
+        for i in range(0,d):
+            fare+=Path[i]
+
+    return math.ceil((fare*5)/1000 )                      
+
+print(busfare("NI", "HA"))
